@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="设计模式," />
 
 
 
@@ -79,16 +79,18 @@
 
 
 
-<meta name="description" content="分享之上">
-<meta property="og:type" content="website">
-<meta property="og:title" content="分享至上">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="1.单例模式  单例模式Singleton 应用场合：有些对象只需要一个就足够了，如古代的皇帝、老婆 作用：保证整个应用程序中某个实例有且只有一个 类型：饿汉模式、懒汉模式饿汉模式代码举例public class Singleton {//1.将构造方法私有化，不允许外部直接创建对象private Singleton(){ }//2.创建类的唯一实例,使用private static//stati">
+<meta name="keywords" content="设计模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java设计模式之单例模式">
+<meta property="og:url" content="http://yoursite.com/2018/03/23/单例模式/index.html">
 <meta property="og:site_name" content="分享至上">
-<meta property="og:description" content="分享之上">
+<meta property="og:description" content="1.单例模式  单例模式Singleton 应用场合：有些对象只需要一个就足够了，如古代的皇帝、老婆 作用：保证整个应用程序中某个实例有且只有一个 类型：饿汉模式、懒汉模式饿汉模式代码举例public class Singleton {//1.将构造方法私有化，不允许外部直接创建对象private Singleton(){ }//2.创建类的唯一实例,使用private static//stati">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-23T13:16:45.237Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="分享至上">
-<meta name="twitter:description" content="分享之上">
+<meta name="twitter:title" content="java设计模式之单例模式">
+<meta name="twitter:description" content="1.单例模式  单例模式Singleton 应用场合：有些对象只需要一个就足够了，如古代的皇帝、老婆 作用：保证整个应用程序中某个实例有且只有一个 类型：饿汉模式、懒汉模式饿汉模式代码举例public class Singleton {//1.将构造方法私有化，不允许外部直接创建对象private Singleton(){ }//2.创建类的唯一实例,使用private static//stati">
 
 
 
@@ -118,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/03/23/单例模式/"/>
 
 
 
 
 
-  <title>分享至上</title>
+  <title>java设计模式之单例模式 | 分享至上</title>
   
 
 
@@ -143,8 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -237,9 +238,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -269,9 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/23/单例模式/" itemprop="url">java设计模式之单例模式</a></h1>
+          <h1 class="post-title" itemprop="name headline">java设计模式之单例模式</h1>
         
 
         <div class="post-meta">
@@ -321,9 +320,7 @@
       
 
       
-        
-          
-            <p>1.单例模式</p>
+        <p>1.单例模式</p>
 <ul>
 <li>单例模式Singleton</li>
 <li>应用场合：有些对象只需要一个就足够了，如古代的皇帝、老婆</li>
@@ -365,8 +362,6 @@ if(s3 == s4){
 <p>饿汉与懒汉的区别<br>饿汉模式的特点是加载类时比较慢，但是运行时获取对象的速度比较快，线程安全<br>懒汉模式的特点是加载类时比较快，但运行时获取对象的速度比较慢，线程不安全</p>
 <p>懒汉式为什么线程不安全？<br>假设开始线程0进入，判断instance为空，在将要创建实例时，cpu切换，线程1又进来了，同样instance为空创建了实例，这是cpu切换回来到0线程，继续创建实可见，经过分析共创建了两个实例，还谈什么单例。<br>改进<br>public static Singleton2 getInstance(){<br>       if(instance == null){<br>           //改进后线程安全<br>          synchronized (Singleton2.class) {<br>            if(instance == null){<br>                instance = new Singleton2();<br>            }<br>        }<br>       }<br>       return instance;<br>   }<br>可以保证线程安全同时又提高了效率。假设0线程进来，instance为空，进入同步代码块，cpu切换，线程1进来，instance为空，在同步代码块外，因为此时0正在里面ok，cup切换，执行创建实例，当1在进入代码块后，此时instace不为空，直接返回instance当在有线程进来instance不为空，不用执行同步代码块，效率提供了。<br>结论:一般开发都是饿汉式，因为不管怎么样，都是需要实例，那就不如先加载了（自己理解的），</p>
 
-          
-        
       
     </div>
     
@@ -381,142 +376,36 @@ if(s3 == s4){
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/23/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zjz">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="分享至上">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/23/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-23T14:20:07+08:00">
-                2018-03-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/设计模式/" rel="tag"># 设计模式</a>
           
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/23/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
       
     </footer>
   </div>
@@ -526,10 +415,11 @@ if(s3 == s4){
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -537,6 +427,10 @@ if(s3 == s4){
 
 
           
+
+  
+
+
 
         </div>
         
@@ -749,6 +643,10 @@ if(s3 == s4){
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
