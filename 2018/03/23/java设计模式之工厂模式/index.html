@@ -86,14 +86,14 @@
 <meta property="og:site_name" content="分享至上">
 <meta property="og:description" content="简单工厂模式(Simple Factory Pattern)从简单的工厂模式开始说起的话，我们要知道工厂模式的目的是什么？工厂模式的目的在于程序的可扩展性。而对于简单工厂模式来说，它是为了让程序有一个更好地封装，降低程序模块之间的耦合程度。对于简单的工厂模式，其实也可以将其理解成为一个创建对象的工具类。工具类的形式，可以仿造如下代码编写：public class SimpleFactory {">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/03/23/java设计模式之工厂模式/images/%E5%B7%A5%E5%8E%821.png">
-<meta property="og:image" content="http://yoursite.com/2018/03/23/java设计模式之工厂模式/images/%E5%B7%A5%E5%8E%822.png">
-<meta property="og:image" content="http://yoursite.com/2018/03/23/java设计模式之工厂模式/images/%E5%B7%A5%E5%8E%823.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/23/java设计模式之工厂模式/%E5%B7%A5%E5%8E%821.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/23/java设计模式之工厂模式/%E5%B7%A5%E5%8E%822.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/23/java设计模式之工厂模式/%E5%B7%A5%E5%8E%823.png">
 <meta property="og:updated_time" content="2018-03-23T14:34:18.057Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java设计模式之工厂模式">
 <meta name="twitter:description" content="简单工厂模式(Simple Factory Pattern)从简单的工厂模式开始说起的话，我们要知道工厂模式的目的是什么？工厂模式的目的在于程序的可扩展性。而对于简单工厂模式来说，它是为了让程序有一个更好地封装，降低程序模块之间的耦合程度。对于简单的工厂模式，其实也可以将其理解成为一个创建对象的工具类。工具类的形式，可以仿造如下代码编写：public class SimpleFactory {">
-<meta name="twitter:image" content="http://yoursite.com/2018/03/23/java设计模式之工厂模式/images/%E5%B7%A5%E5%8E%821.png">
+<meta name="twitter:image" content="http://yoursite.com/2018/03/23/java设计模式之工厂模式/%E5%B7%A5%E5%8E%821.png">
 
 
 
@@ -371,7 +371,7 @@ private Plane createPlane() {
     broom.run();  
 }  
 </code></pre><p>}<br>正如之前所说的，简单的工厂模式，就是去创建一个创建对象的工具类。在这个工具类里面，我们就可以进行一些其他操作，比如对象的初始化。这样就避免了把对象初始化的大量代码(如果有大量代码的话)放在构造函数里了。</p>
-<p>工厂方法模式(Factory Method Pattern)<br>在简单的工厂模式里，我们创建了一个类似工具的类来创建相应的具体类对象。正因为其太过简单，有一点不成规范。所以，这里要对其做一些适当地封装。<br>我们来看一下工厂方法模式的定义吧。工厂方法模式定义了一个创建对象的接口，但由子类决定要实例化哪一个。工厂方法让类把实例化推迟到了子类。（定义摘自《Head First设计模式》）<br><img src="./images/%E5%B7%A5%E5%8E%821.png" alt="enter description here" title="工厂1.png"><br>抽象工厂：<br>我们的抽象工厂可以是类似这样的：<br>public abstract class VehicleFactory {<br>    public abstract Moveable create();<br>}<br>具体工厂：<br>代码就是这样简单而美好。而它有一个具体的实现工厂类：<br>public class BroomFactory extends VehicleFactory {  </p>
+<p>工厂方法模式(Factory Method Pattern)<br>在简单的工厂模式里，我们创建了一个类似工具的类来创建相应的具体类对象。正因为其太过简单，有一点不成规范。所以，这里要对其做一些适当地封装。<br>我们来看一下工厂方法模式的定义吧。工厂方法模式定义了一个创建对象的接口，但由子类决定要实例化哪一个。工厂方法让类把实例化推迟到了子类。（定义摘自《Head First设计模式》）<br><img src="/2018/03/23/java设计模式之工厂模式/%E5%B7%A5%E5%8E%821.png" alt="enter description here" title="工厂1.png"><br>抽象工厂：<br>我们的抽象工厂可以是类似这样的：<br>public abstract class VehicleFactory {<br>    public abstract Moveable create();<br>}<br>具体工厂：<br>代码就是这样简单而美好。而它有一个具体的实现工厂类：<br>public class BroomFactory extends VehicleFactory {  </p>
 <pre><code>@Override  
 public Moveable create() {  
     return new Broom();  
@@ -382,7 +382,7 @@ public void run() {
     System.out.println(&quot;我是Broom.我在飞...&quot;);  
 }  
 </code></pre><p>}<br>功能测试：<br>我们有工厂，并且知道了工厂要生产的产品了。那么我们就来生产一个 Broom 来试试吧：<br>VehicleFactory factory = new BroomFactory();<br>Moveable moveable = factory.create();<br>moveable.run();<br>这样我就生产了一个 Broom 了。是不是 so easy？</p>
-<p>抽象工厂模式(Abstract Factory Pattern)<br>从上面的工厂方法中的结构图中，我们可以看到其中的具体工厂A和B是两个完全独立的。两者除了都是抽象工厂的子类，没有任何其他的交集。但是，如果我们有这样一个需求：具体工厂A和B需要生产一些同类型的不同产品。那么我们就可以试试抽象工厂模式。我们来看看抽象工厂模式是怎么定义的：为创建一组相关或相互依赖的对象提供一个接口，而且无需指定他们的具体类。同样在下面的结构图中，我们可以更好地解释这一定义。我们的抽象工厂中包含一系列的去构造一个抽象产品的方法，而具体产品的实现则是放在了具体工厂（图中的A和B）中进行。<br><img src="./images/%E5%B7%A5%E5%8E%822.png" alt="enter description here" title="工厂2.png"><br>现在我们看看代码中是如何实现的。<br>抽象工厂：<br>public abstract class AbstractFactory {  </p>
+<p>抽象工厂模式(Abstract Factory Pattern)<br>从上面的工厂方法中的结构图中，我们可以看到其中的具体工厂A和B是两个完全独立的。两者除了都是抽象工厂的子类，没有任何其他的交集。但是，如果我们有这样一个需求：具体工厂A和B需要生产一些同类型的不同产品。那么我们就可以试试抽象工厂模式。我们来看看抽象工厂模式是怎么定义的：为创建一组相关或相互依赖的对象提供一个接口，而且无需指定他们的具体类。同样在下面的结构图中，我们可以更好地解释这一定义。我们的抽象工厂中包含一系列的去构造一个抽象产品的方法，而具体产品的实现则是放在了具体工厂（图中的A和B）中进行。<br><img src="/2018/03/23/java设计模式之工厂模式/%E5%B7%A5%E5%8E%822.png" alt="enter description here" title="工厂2.png"><br>现在我们看看代码中是如何实现的。<br>抽象工厂：<br>public abstract class AbstractFactory {  </p>
 <pre><code>public abstract Flyable createFlyable();  
 
 public abstract Moveable createMoveable();  
@@ -422,7 +422,7 @@ public void fly(int height) {
     Writeable writeable = factory.createWriteable();  
     writeable.write(&quot;Hello World.&quot;);  
 }  
-</code></pre><p>}<br>现在让我们来看一下，结果是否跟我们想的一样吧。<br><img src="./images/%E5%B7%A5%E5%8E%823.png" alt="enter description here" title="工厂3.png"></p>
+</code></pre><p>}<br>现在让我们来看一下，结果是否跟我们想的一样吧。<br><img src="/2018/03/23/java设计模式之工厂模式/%E5%B7%A5%E5%8E%823.png" alt="enter description here" title="工厂3.png"></p>
 <p>总结<br>以上就是工厂模式的基本实现和详细说明。包括了简单工厂模式、工厂方法模式、抽象工厂模式。我们可以基于需求来选择合适的工厂模式。</p>
 
       
@@ -458,7 +458,7 @@ public void fly(int height) {
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/03/24/java设计模式之代理模式/" rel="prev" title="java设计模式之代理模式">
+              <a href="/2018/03/24/java设计模式之代理模式-1/" rel="prev" title="java设计模式之代理模式">
                 java设计模式之代理模式 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -528,7 +528,7 @@ public void fly(int height) {
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -545,15 +545,6 @@ public void fly(int height) {
               </div>
             
 
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">1</span>
-                  <span class="site-state-item-name">标签</span>
-                
-              </div>
             
 
           </nav>
