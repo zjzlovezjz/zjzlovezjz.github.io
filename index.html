@@ -252,6 +252,226 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/24/java设计模式之工厂模式-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zjz">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="分享至上">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/24/java设计模式之工厂模式-1/" itemprop="url">java设计模式之工厂模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-24T15:26:43+08:00">
+                2018-03-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">java设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>简单工厂模式(Simple Factory Pattern)<br>从简单的工厂模式开始说起的话，我们要知道工厂模式的目的是什么？工厂模式的目的在于程序的可扩展性。而对于简单工厂模式来说，它是为了让程序有一个更好地封装，降低程序模块之间的耦合程度。对于简单的工厂模式，其实也可以将其理解成为一个创建对象的工具类。工具类的形式，可以仿造如下代码编写：<br>public class SimpleFactory {  </p>
+<pre><code>public Object create(Class&lt;?&gt; clazz) {  
+    if (clazz.getName().equals(Plane.class.getName())) {  
+        return createPlane();  
+    } else if (clazz.getName().equals(Broom.class.getName())) {  
+        return createBroom();  
+    }  
+
+    return null;  
+}  
+
+private Broom createBroom() {  
+    return new Broom();  
+}  
+
+private Plane createPlane() {  
+    return new Plane();  
+}  
+</code></pre><p>}<br>测试代码如下：<br>public class FactoryTest {  </p>
+<pre><code>public static void main(String[] args) {  
+    // 简单工厂模式测试  
+    SimpleFactory simpleFactory = new SimpleFactory();  
+    Broom broom = (Broom) simpleFactory.create(Broom.class);  
+    broom.run();  
+}  
+</code></pre><p>}<br>正如之前所说的，简单的工厂模式，就是去创建一个创建对象的工具类。在这个工具类里面，我们就可以进行一些其他操作，比如对象的初始化。这样就避免了把对象初始化的大量代码(如果有大量代码的话)放在构造函数里了。</p>
+<p>工厂方法模式(Factory Method Pattern)<br>在简单的工厂模式里，我们创建了一个类似工具的类来创建相应的具体类对象。正因为其太过简单，有一点不成规范。所以，这里要对其做一些适当地封装。<br>我们来看一下工厂方法模式的定义吧。工厂方法模式定义了一个创建对象的接口，但由子类决定要实例化哪一个。工厂方法让类把实例化推迟到了子类。（定义摘自《Head First设计模式》）<br><img src="/2018/03/24/java设计模式之工厂模式-1/%E5%B7%A5%E5%8E%821.png" alt="enter description here" title="工厂1.png"><br>抽象工厂：<br>我们的抽象工厂可以是类似这样的：<br>public abstract class VehicleFactory {<br>    public abstract Moveable create();<br>}<br>具体工厂：<br>代码就是这样简单而美好。而它有一个具体的实现工厂类：<br>public class BroomFactory extends VehicleFactory {  </p>
+<pre><code>@Override  
+public Moveable create() {  
+    return new Broom();  
+}  
+</code></pre><p>}<br>这个具体的实现工厂告诉我们，这里可以通过 create() 方法来创建一个 Broom 对象。我们可以这样来理解他们的关系：有一个大的工厂它就是VehicleFactory，VehicleFactory工厂里又有很多生产车间，其中有一个就是BroomFactory。我们的具体产品都是通过这些生产车间来负责生产的。<br>抽象产品接口：<br>说到了产品，我们可以先试想一下这些具体的产品都会有什么样的性质。我们可以这样来定义它们：<br>public interface Moveable {<br>    public void run();<br>}<br>具体产品：<br>嗯，这是一些可以run(移动)的产品。就 BroomFactory 生产车间而言，它负责生产 Broom。这个 Broom 是具有 Moveable 的属性。那么它的实现可以这样来写：<br>public class Broom implements Moveable {  </p>
+<pre><code>@Override  
+public void run() {  
+    System.out.println(&quot;我是Broom.我在飞...&quot;);  
+}  
+</code></pre><p>}<br>功能测试：<br>我们有工厂，并且知道了工厂要生产的产品了。那么我们就来生产一个 Broom 来试试吧：<br>VehicleFactory factory = new BroomFactory();<br>Moveable moveable = factory.create();<br>moveable.run();<br>这样我就生产了一个 Broom 了。是不是 so easy？</p>
+<p>抽象工厂模式(Abstract Factory Pattern)<br>从上面的工厂方法中的结构图中，我们可以看到其中的具体工厂A和B是两个完全独立的。两者除了都是抽象工厂的子类，没有任何其他的交集。但是，如果我们有这样一个需求：具体工厂A和B需要生产一些同类型的不同产品。那么我们就可以试试抽象工厂模式。我们来看看抽象工厂模式是怎么定义的：为创建一组相关或相互依赖的对象提供一个接口，而且无需指定他们的具体类。同样在下面的结构图中，我们可以更好地解释这一定义。我们的抽象工厂中包含一系列的去构造一个抽象产品的方法，而具体产品的实现则是放在了具体工厂（图中的A和B）中进行。<br><img src="/2018/03/24/java设计模式之工厂模式-1/%E5%B7%A5%E5%8E%822.png" alt="enter description here" title="工厂2.png"><br>现在我们看看代码中是如何实现的。<br>抽象工厂：<br>public abstract class AbstractFactory {  </p>
+<pre><code>public abstract Flyable createFlyable();  
+
+public abstract Moveable createMoveable();  
+
+public abstract Writeable createWriteable();  
+</code></pre><p>}<br>具体工厂：<br>从抽象工厂的代码中也可以看出，抽象工厂只是去“生产”一些抽象的东西。有点类似于底层机制的感觉。现在我们来看看具体工厂的实现。<br>public class Factory1 extends AbstractFactory {  </p>
+<pre><code>@Override  
+public Flyable createFlyable() {  
+    return new Aircraft();  
+}  
+
+@Override  
+public Moveable createMoveable() {  
+    return new Car();  
+}  
+
+@Override  
+public Writeable createWriteable() {  
+    return new Pen();  
+}  
+</code></pre><p>}<br>抽象产品接口：<br>在具体工厂里，我们就可以生产一些具体的产品了。就是这里的Aircraft、Car、Pen。抽象的产品接口如下。<br>public interface Flyable {  </p>
+<pre><code>public void fly(int height);  
+</code></pre><p>}<br>具体产品：<br>具体的产品则是要去实现这个接口，并实现其中的方法，如下：<br>public class Aircraft implements Flyable {  </p>
+<pre><code>@Override  
+public void fly(int height) {  
+    System.out.println(&quot;我是一架客运机，我目前的飞行高度为：&quot; + height + &quot;千米。&quot;);  
+}  
+</code></pre><p>}<br>功能测试：<br>有了这些东西，那么我们就来好好生产一些产品吧。<br>public class FactoryTest {  </p>
+<pre><code>public static void main(String[] args) {  
+    AbstractFactory factory = new Factory1();  
+    Flyable flyable = factory.createFlyable();  
+    flyable.fly(1589);  
+
+    Moveable moveable = factory.createMoveable();  
+    moveable.run(87.6);  
+
+    Writeable writeable = factory.createWriteable();  
+    writeable.write(&quot;Hello World.&quot;);  
+}  
+</code></pre><p>}<br>现在让我们来看一下，结果是否跟我们想的一样吧。<br><img src="/2018/03/24/java设计模式之工厂模式-1/%E5%B7%A5%E5%8E%823.png" alt="enter description here" title="工厂3.png"></p>
+<p>总结<br>以上就是工厂模式的基本实现和详细说明。包括了简单工厂模式、工厂方法模式、抽象工厂模式。我们可以基于需求来选择合适的工厂模式。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/24/java设计模式之代理模式-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -495,226 +715,6 @@ proxy.save();
 </code></pre><p> }<br>}<br>在Spring的AOP编程中:<br>如果加入容器的目标对象有实现接口,用JDK代理<br>如果目标对象没有实现接口,用Cglib代理</p>
 </li>
 </ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/23/java设计模式之工厂模式/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zjz">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="分享至上">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/23/java设计模式之工厂模式/" itemprop="url">java设计模式之工厂模式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-23T22:34:18+08:00">
-                2018-03-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java设计模式/" itemprop="url" rel="index">
-                    <span itemprop="name">java设计模式</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>简单工厂模式(Simple Factory Pattern)<br>从简单的工厂模式开始说起的话，我们要知道工厂模式的目的是什么？工厂模式的目的在于程序的可扩展性。而对于简单工厂模式来说，它是为了让程序有一个更好地封装，降低程序模块之间的耦合程度。对于简单的工厂模式，其实也可以将其理解成为一个创建对象的工具类。工具类的形式，可以仿造如下代码编写：<br>public class SimpleFactory {  </p>
-<pre><code>public Object create(Class&lt;?&gt; clazz) {  
-    if (clazz.getName().equals(Plane.class.getName())) {  
-        return createPlane();  
-    } else if (clazz.getName().equals(Broom.class.getName())) {  
-        return createBroom();  
-    }  
-
-    return null;  
-}  
-
-private Broom createBroom() {  
-    return new Broom();  
-}  
-
-private Plane createPlane() {  
-    return new Plane();  
-}  
-</code></pre><p>}<br>测试代码如下：<br>public class FactoryTest {  </p>
-<pre><code>public static void main(String[] args) {  
-    // 简单工厂模式测试  
-    SimpleFactory simpleFactory = new SimpleFactory();  
-    Broom broom = (Broom) simpleFactory.create(Broom.class);  
-    broom.run();  
-}  
-</code></pre><p>}<br>正如之前所说的，简单的工厂模式，就是去创建一个创建对象的工具类。在这个工具类里面，我们就可以进行一些其他操作，比如对象的初始化。这样就避免了把对象初始化的大量代码(如果有大量代码的话)放在构造函数里了。</p>
-<p>工厂方法模式(Factory Method Pattern)<br>在简单的工厂模式里，我们创建了一个类似工具的类来创建相应的具体类对象。正因为其太过简单，有一点不成规范。所以，这里要对其做一些适当地封装。<br>我们来看一下工厂方法模式的定义吧。工厂方法模式定义了一个创建对象的接口，但由子类决定要实例化哪一个。工厂方法让类把实例化推迟到了子类。（定义摘自《Head First设计模式》）<br><img src="/2018/03/23/java设计模式之工厂模式/%E5%B7%A5%E5%8E%821.png" alt="enter description here" title="工厂1.png"><br>抽象工厂：<br>我们的抽象工厂可以是类似这样的：<br>public abstract class VehicleFactory {<br>    public abstract Moveable create();<br>}<br>具体工厂：<br>代码就是这样简单而美好。而它有一个具体的实现工厂类：<br>public class BroomFactory extends VehicleFactory {  </p>
-<pre><code>@Override  
-public Moveable create() {  
-    return new Broom();  
-}  
-</code></pre><p>}<br>这个具体的实现工厂告诉我们，这里可以通过 create() 方法来创建一个 Broom 对象。我们可以这样来理解他们的关系：有一个大的工厂它就是VehicleFactory，VehicleFactory工厂里又有很多生产车间，其中有一个就是BroomFactory。我们的具体产品都是通过这些生产车间来负责生产的。<br>抽象产品接口：<br>说到了产品，我们可以先试想一下这些具体的产品都会有什么样的性质。我们可以这样来定义它们：<br>public interface Moveable {<br>    public void run();<br>}<br>具体产品：<br>嗯，这是一些可以run(移动)的产品。就 BroomFactory 生产车间而言，它负责生产 Broom。这个 Broom 是具有 Moveable 的属性。那么它的实现可以这样来写：<br>public class Broom implements Moveable {  </p>
-<pre><code>@Override  
-public void run() {  
-    System.out.println(&quot;我是Broom.我在飞...&quot;);  
-}  
-</code></pre><p>}<br>功能测试：<br>我们有工厂，并且知道了工厂要生产的产品了。那么我们就来生产一个 Broom 来试试吧：<br>VehicleFactory factory = new BroomFactory();<br>Moveable moveable = factory.create();<br>moveable.run();<br>这样我就生产了一个 Broom 了。是不是 so easy？</p>
-<p>抽象工厂模式(Abstract Factory Pattern)<br>从上面的工厂方法中的结构图中，我们可以看到其中的具体工厂A和B是两个完全独立的。两者除了都是抽象工厂的子类，没有任何其他的交集。但是，如果我们有这样一个需求：具体工厂A和B需要生产一些同类型的不同产品。那么我们就可以试试抽象工厂模式。我们来看看抽象工厂模式是怎么定义的：为创建一组相关或相互依赖的对象提供一个接口，而且无需指定他们的具体类。同样在下面的结构图中，我们可以更好地解释这一定义。我们的抽象工厂中包含一系列的去构造一个抽象产品的方法，而具体产品的实现则是放在了具体工厂（图中的A和B）中进行。<br><img src="/2018/03/23/java设计模式之工厂模式/%E5%B7%A5%E5%8E%822.png" alt="enter description here" title="工厂2.png"><br>现在我们看看代码中是如何实现的。<br>抽象工厂：<br>public abstract class AbstractFactory {  </p>
-<pre><code>public abstract Flyable createFlyable();  
-
-public abstract Moveable createMoveable();  
-
-public abstract Writeable createWriteable();  
-</code></pre><p>}<br>具体工厂：<br>从抽象工厂的代码中也可以看出，抽象工厂只是去“生产”一些抽象的东西。有点类似于底层机制的感觉。现在我们来看看具体工厂的实现。<br>public class Factory1 extends AbstractFactory {  </p>
-<pre><code>@Override  
-public Flyable createFlyable() {  
-    return new Aircraft();  
-}  
-
-@Override  
-public Moveable createMoveable() {  
-    return new Car();  
-}  
-
-@Override  
-public Writeable createWriteable() {  
-    return new Pen();  
-}  
-</code></pre><p>}<br>抽象产品接口：<br>在具体工厂里，我们就可以生产一些具体的产品了。就是这里的Aircraft、Car、Pen。抽象的产品接口如下。<br>public interface Flyable {  </p>
-<pre><code>public void fly(int height);  
-</code></pre><p>}<br>具体产品：<br>具体的产品则是要去实现这个接口，并实现其中的方法，如下：<br>public class Aircraft implements Flyable {  </p>
-<pre><code>@Override  
-public void fly(int height) {  
-    System.out.println(&quot;我是一架客运机，我目前的飞行高度为：&quot; + height + &quot;千米。&quot;);  
-}  
-</code></pre><p>}<br>功能测试：<br>有了这些东西，那么我们就来好好生产一些产品吧。<br>public class FactoryTest {  </p>
-<pre><code>public static void main(String[] args) {  
-    AbstractFactory factory = new Factory1();  
-    Flyable flyable = factory.createFlyable();  
-    flyable.fly(1589);  
-
-    Moveable moveable = factory.createMoveable();  
-    moveable.run(87.6);  
-
-    Writeable writeable = factory.createWriteable();  
-    writeable.write(&quot;Hello World.&quot;);  
-}  
-</code></pre><p>}<br>现在让我们来看一下，结果是否跟我们想的一样吧。<br><img src="/2018/03/23/java设计模式之工厂模式/%E5%B7%A5%E5%8E%823.png" alt="enter description here" title="工厂3.png"></p>
-<p>总结<br>以上就是工厂模式的基本实现和详细说明。包括了简单工厂模式、工厂方法模式、抽象工厂模式。我们可以基于需求来选择合适的工厂模式。</p>
 
           
         
